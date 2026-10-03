@@ -1,0 +1,23 @@
+Build a single-page, self-contained "motion movie" using Three.js: a cinematic, autoplaying animated 3D scene meant to feel like a great, uplifting start to the weekend. This is a surprise gift for someone - do not put any descriptive/spoiler text anywhere visible (no title text on screen, keep the HTML <title> generic like "Weekend"). 
+
+CREATIVE DIRECTION (interpret with real craft and polish, don't be literal/cheesy about it):
+- Emotional arc: darkness/quiet giving way to light and open space. A sense of release, of a week ending and something expansive beginning.
+- A single raven silhouette takes flight from a rooftop/ledge at dusk-to-dawn transition, flying up and out over a minimalist stylized city skyline (subtle Dallas-ish silhouette is a nice Easter egg but keep it abstract/low-poly, not literal landmarks) into open sky as the color grade shifts from deep navy/indigo through warm amber to a soft golden sunrise. Use particles (like floating embers/stars fading into dust motes or birds) for atmosphere.
+- Camera does a slow, deliberate cinematic move (dolly/orbit/fly-through) across roughly 20-40 seconds, then settles on a wide, calm, beautiful final frame (loop it gently or hold on the final frame - whichever reads better; your call, favor a seamless gentle loop if you can pull it off well).
+- Color palette: deep indigo/navy -> warm amber/gold -> soft cream. A touch of deep green (like British racing green / forest green) is welcome as an accent since it suits the mood, but don't force it.
+- Style: low-poly / minimalist geometric aesthetic (think Three.js generative art, abstract silhouettes, gradients, fog, bloom/glow post-processing) rather than photorealistic. This should look genuinely beautiful and professional, like something you'd see in a design portfolio, not a tech demo.
+- Subtle ambient audio is a nice touch IF you can do it tastefully with royalty-free/generated tones (e.g. simple Web Audio API ambient drone/pad that fades in) - but default to muted/no-audio-required if that adds too much risk; the visual must work perfectly with sound off since autoplay audio is often blocked by browsers anyway. Do NOT rely on any external audio file URLs - only inline-generated Web Audio API tones if you do audio at all, and make it default muted with an optional small show-on-hover unmute control that doesn't distract from the visual (place it subtly in a corner, low opacity until hovered).
+
+TECHNICAL REQUIREMENTS:
+- Single index.html file (plus optionally a small number of local .js module files if that's cleaner - your call) in this directory. Use Three.js via CDN import (e.g. https://unpkg.com/three@latest/build/three.module.js or importmap with a pinned recent version) - no build step, no npm install needed, must work as a static file served over plain HTTP(S).
+- Must work well on both desktop and mobile Safari/Chrome (this will primarily be opened on a phone). Responsive canvas, devicePixelRatio handled, reasonable performance on a mid-range phone GPU (keep particle counts and post-processing sane, test for smoothness mentally - prefer simplicity executed beautifully over complexity that chugs).
+- Autoplay on page load - no "click to start" button required, though an invisible first-interaction unlock for audio is fine to include defensively (just don't require it for the visual).
+- No visible text, no title overlay, no credits, no "built with" banner. Background color should be solid (not white) immediately on load so there's no white-flash before three.js initializes.
+- Keep total page weight reasonable (no large external asset downloads beyond the three.js CDN module itself).
+- Add a plain root-level README.md (not shown to the end user, just for the repo) with one sentence describing what this is, for future reference only.
+
+QUALITY BAR:
+- After building, use a headless check: install playwright if not already available (pip install playwright or npm equivalent - use whichever is faster in this environment) and take a screenshot of the page at say 2s, 10s, and 20s into playback, saved into a local ./qa-screenshots/ folder, to sanity check that something is actually rendering (not a blank/black screen, not console errors). Check the browser console log for JS errors during that run and fix any you find. Report in README.md (or a separate QA_NOTES.md) what you verified and what the screenshots showed.
+- Do not ask for permission or confirmation at any point - proceed autonomously through the whole build including the QA screenshot step.
+
+When finished and QA'd, stop.
